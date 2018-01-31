@@ -27,15 +27,16 @@ def getBandname(url):
         getBandname(url)
     else:
         print("Band:")
-        print (lis[-1].text.encode("utf-8"))
+        bandname = lis[-1].text.encode("utf-8")
+        print (bandname)
     
 def getAlbumname(url):
     r  = requests.get(url)
     data = r.text
     soup = BeautifulSoup(data, "html.parser")
-    firstB = soup.find('b') # Start here
+    albumname = soup.find('b') # Start here
     print("Album:")
-    print(firstB)
+    print(albumname)
 
 def getAlbumpicture(url):
     r  = requests.get(url)
@@ -48,7 +49,17 @@ def getAlbumpicture(url):
     for img in td:
         for links in img.find_all('a'):
             pix.append("https://www.flickr.com"+links.get('href'))
-    print(random.choice(pix))
+    picurl = random.choice(pix)
+    #print(picurl)
+    r  = requests.get(picurl)
+    data = r.text
+    soup = BeautifulSoup(data, "html.parser")
+
+    picture = soup.find("meta",  property="og:image")
+    albumart = picture.get('content')
+    print(albumart)
+
+  
     #filename = url.split("/")[-1]
     #r = requests.get(url, timeout=0.5)
     #if r.status_code == 200:
