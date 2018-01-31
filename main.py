@@ -1,3 +1,4 @@
+#pip install requests && pip install BeautifulSoup
 from bs4 import BeautifulSoup
 import requests
 import shutil
